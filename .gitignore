@@ -1,0 +1,140 @@
+## -----------------------------------------------------------------------
+## .gitignore for WPF / .NET 8 application (TradingJournal)
+## -----------------------------------------------------------------------
+
+# -------------------------
+# Build output
+# -------------------------
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+[Ll]og/
+[Ll]ogs/
+
+# -------------------------
+# Visual Studio
+# -------------------------
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# Visual Studio cache / temp files
+.vscode/
+.idea/
+
+# NuGet packages
+packages/
+*.nupkg
+*.snupkg
+project.lock.json
+project.assets.json
+**/packages/*
+!**/packages/build/
+
+# NuGet restore lock file (keep if you pin versions)
+# packages.lock.json
+
+# -------------------------
+# .NET / MSBuild
+# -------------------------
+*.dll
+*.exe
+*.pdb
+*.cache
+*.ilk
+*.meta
+*.pidb
+*.rsp
+*.sbr
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.VC.opendb
+*.ncb
+*.bak
+*.orig
+*.tmp
+*.swp
+*~.*
+
+# MSBuild binary log
+*.binlog
+
+# Publish / deployment output
+[Pp]ublish/
+PublishProfiles/
+*.pubxml
+*.pubxml.user
+
+# -------------------------
+# WPF / Windows
+# -------------------------
+# Temporary WPF files
+*.g.cs
+*.g.i.cs
+GeneratedFiles/
+
+# Windows thumbnail cache
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# -------------------------
+# Entity Framework Core
+# -------------------------
+# SQLite database files (runtime data — never commit these)
+# Data/*.db
+# Data/*.db-shm
+# Data/*.db-wal
+# Data/*.db-journal
+
+# EF Core migration bundle output
+efbundle
+efbundle.exe
+
+# Seed report generated at runtime
+Data/seed-report.txt
+
+# -------------------------
+# Rider / JetBrains
+# -------------------------
+.idea/
+*.sln.iml
+
+# -------------------------
+# ReSharper
+# -------------------------
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# -------------------------
+# Test results
+# -------------------------
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.trx
+*.coverage
+*.coveragexml
+TestResults/
+
+# -------------------------
+# Coverage tools
+# -------------------------
+coverage*/
+*.lcov
+*.opencover.xml
+
+# -------------------------
+# Misc
+# -------------------------
+*.DS_Store
+.env
+.env.*
+*.local
