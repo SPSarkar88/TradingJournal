@@ -1,0 +1,123 @@
+<UserControl x:Class="TradingJournal.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,18">
+                <Button Content="Refresh Dashboard"
+                        Command="{Binding RefreshCommand}"
+                        Style="{StaticResource PrimaryButtonStyle}" />
+            </StackPanel>
+
+            <UniformGrid Columns="5">
+                <Border Style="{StaticResource MetricCardStyle}" Margin="0,0,16,16">
+                    <StackPanel>
+                        <TextBlock Text="Total P and L" Style="{StaticResource CardLabelTextStyle}" />
+                        <TextBlock Text="{Binding TotalPnL, StringFormat=N2}" Style="{StaticResource MetricValueTextStyle}" />
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource MetricCardStyle}" Margin="0,0,16,16">
+                    <StackPanel>
+                        <TextBlock Text="Win Rate" Style="{StaticResource CardLabelTextStyle}" />
+                        <TextBlock Text="{Binding WinRateDisplay}" Style="{StaticResource MetricValueTextStyle}" />
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource MetricCardStyle}" Margin="0,0,16,16">
+                    <StackPanel>
+                        <TextBlock Text="Avg Profit" Style="{StaticResource CardLabelTextStyle}" />
+                        <TextBlock Text="{Binding AverageProfit, StringFormat=N2}" Style="{StaticResource MetricValueTextStyle}" />
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource MetricCardStyle}" Margin="0,0,16,16">
+                    <StackPanel>
+                        <TextBlock Text="Avg Loss" Style="{StaticResource CardLabelTextStyle}" />
+                        <TextBlock Text="{Binding AverageLoss, StringFormat=N2}" Style="{StaticResource MetricValueTextStyle}" />
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource MetricCardStyle}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="R-Multiple" Style="{StaticResource CardLabelTextStyle}" />
+                        <TextBlock Text="{Binding RMultipleLabel}" Margin="0,16,0,0" FontSize="22" FontWeight="Bold" TextWrapping="Wrap" />
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.2*" />
+                    <ColumnDefinition Width="18" />
+                    <ColumnDefinition Width="0.8*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Style="{StaticResource PanelCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Equity Curve" Style="{StaticResource CardTitleTextStyle}" />
+                        <ContentControl x:Name="EquityChartHost"
+                                        Height="280"
+                                        Margin="0,18,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="2" Style="{StaticResource PanelCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Win/Loss Distribution" Style="{StaticResource CardTitleTextStyle}" />
+                        <ContentControl x:Name="WinLossChartHost"
+                                        Height="280"
+                                        Margin="0,18,0,0" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Grid Margin="0,18,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="18" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Style="{StaticResource PanelCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Daily P and L" Style="{StaticResource CardTitleTextStyle}" />
+                        <ItemsControl Margin="0,14,0,0" ItemsSource="{Binding DailySummaries}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,0,0,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding Label}" Style="{StaticResource CardBodyTextStyle}" />
+                                        <TextBlock Grid.Column="1" Text="{Binding TotalPnL, StringFormat=N2}" FontWeight="SemiBold" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="2" Style="{StaticResource PanelCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Weekly P and L" Style="{StaticResource CardTitleTextStyle}" />
+                        <ItemsControl Margin="0,14,0,0" ItemsSource="{Binding WeeklySummaries}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,0,0,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding Label}" Style="{StaticResource CardBodyTextStyle}" />
+                                        <TextBlock Grid.Column="1" Text="{Binding TotalPnL, StringFormat=N2}" FontWeight="SemiBold" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

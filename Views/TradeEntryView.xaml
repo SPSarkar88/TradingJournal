@@ -1,0 +1,213 @@
+<UserControl x:Class="TradingJournal.Views.TradeEntryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <Border Style="{StaticResource HeroCardStyle}">
+                <StackPanel>
+                    <TextBlock Text="{Binding FormTitle}"
+                               Style="{StaticResource PageTitleTextStyle}" />
+                    <TextBlock Text="{Binding ActiveAccountDisplay}"
+                               Margin="0,10,0,0"
+                               Foreground="{StaticResource SecondaryTextBrush}"
+                               TextWrapping="Wrap" />
+                    <TextBlock Text="{Binding StatusMessage}"
+                               Margin="0,10,0,0"
+                               Foreground="{StaticResource SecondaryTextBrush}"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource PanelCardStyle}"
+                    Margin="0,18,0,0"
+                    Visibility="{Binding RuleAlertMessage, Converter={StaticResource StringToVisibilityConverter}}">
+                <StackPanel>
+                    <TextBlock Text="Active Rule Alerts"
+                               Style="{StaticResource CardTitleTextStyle}"
+                               Foreground="IndianRed" />
+                    <TextBlock Text="{Binding RuleAlertMessage}"
+                               Margin="0,10,0,0"
+                               TextWrapping="Wrap"
+                               Foreground="IndianRed" />
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource PanelCardStyle}" Margin="0,18,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="16" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Symbol" Style="{StaticResource CardLabelTextStyle}" />
+                    <TextBox Grid.Row="1"
+                             Grid.ColumnSpan="3"
+                             Margin="0,6,0,14"
+                             Text="{Binding Symbol, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <TextBlock Grid.Row="2" Text="Entry Price" Style="{StaticResource CardLabelTextStyle}" />
+                    <TextBox Grid.Row="3"
+                             Margin="0,6,0,14"
+                             Text="{Binding EntryPrice, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Grid.Row="2" Grid.Column="2" Text="Exit Price" Style="{StaticResource CardLabelTextStyle}" />
+                    <TextBox Grid.Row="3"
+                             Grid.Column="2"
+                             Margin="0,6,0,14"
+                             Text="{Binding ExitPrice, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}" />
+
+                    <TextBlock Grid.Row="4" Text="Quantity" Style="{StaticResource CardLabelTextStyle}" />
+                    <TextBox Grid.Row="5"
+                             Margin="0,6,0,14"
+                             Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Grid.Row="4" Grid.Column="2" Text="Trade Type" Style="{StaticResource CardLabelTextStyle}" />
+                    <ComboBox Grid.Row="5"
+                              Grid.Column="2"
+                              Margin="0,6,0,14"
+                              ItemsSource="{Binding TradeTypes}"
+                              SelectedItem="{Binding SelectedTradeType}" />
+
+                    <TextBlock Grid.Row="6" Text="Direction" Style="{StaticResource CardLabelTextStyle}" />
+                    <StackPanel Grid.Row="7" Orientation="Horizontal" Margin="0,6,0,14">
+                        <RadioButton Content="Buy" IsChecked="{Binding IsBuy}" Margin="0,0,16,0" />
+                        <RadioButton Content="Sell" IsChecked="{Binding IsSell}" />
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="6" Grid.Column="2" Text="Strategy" Style="{StaticResource CardLabelTextStyle}" />
+                    <TextBox Grid.Row="7"
+                             Grid.Column="2"
+                             Margin="0,6,0,14"
+                             Text="{Binding StrategyTag, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <Grid Grid.Row="8" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Entry Date" Style="{StaticResource CardLabelTextStyle}" />
+                        <DatePicker Grid.Row="1" Margin="0,6,0,14" SelectedDate="{Binding EntryDate}" />
+                        <TextBlock Grid.Row="2" Text="Entry Time (HH:mm)" Style="{StaticResource CardLabelTextStyle}" />
+                        <TextBox Grid.Row="3" Margin="0,6,0,14" Text="{Binding EntryTimeText}" />
+
+                        <TextBlock Grid.Column="2" Text="Exit Date" Style="{StaticResource CardLabelTextStyle}" />
+                        <DatePicker Grid.Row="1" Grid.Column="2" Margin="0,6,0,14" SelectedDate="{Binding ExitDate}" />
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="Exit Time (HH:mm)" Style="{StaticResource CardLabelTextStyle}" />
+                        <TextBox Grid.Row="3" Grid.Column="2" Margin="0,6,0,14" Text="{Binding ExitTimeText}" />
+
+                        <TextBlock Grid.Row="4" Text="Stop Loss" Style="{StaticResource CardLabelTextStyle}" />
+                        <TextBox Grid.Row="5" Margin="0,6,0,14" Text="{Binding StopLossPrice, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}" />
+                        <TextBlock Grid.Row="4" Grid.Column="2" Text="Brokerage" Style="{StaticResource CardLabelTextStyle}" />
+                        <TextBox Grid.Row="5" Grid.Column="2" Margin="0,6,0,14" Text="{Binding Brokerage, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <TextBlock Grid.Row="6" Text="Taxes" Style="{StaticResource CardLabelTextStyle}" />
+                        <TextBox Grid.Row="7" Margin="0,6,0,14" Text="{Binding Taxes, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <TextBlock Grid.Row="6" Grid.Column="2" Text="Notes" Style="{StaticResource CardLabelTextStyle}" />
+                        <TextBox Grid.Row="7"
+                                 Grid.Column="2"
+                                 Margin="0,6,0,14"
+                                 Height="72"
+                                 TextWrapping="Wrap"
+                                 AcceptsReturn="True"
+                                 VerticalScrollBarVisibility="Auto"
+                                 Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}" />
+
+                        <Grid Grid.Row="8" Grid.ColumnSpan="3" Margin="0,4,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Border Background="{StaticResource SurfaceAltBrush}"
+                                    BorderBrush="{StaticResource BorderBrushSoft}"
+                                    BorderThickness="1"
+                                    CornerRadius="16"
+                                    Padding="16">
+                                <StackPanel>
+                                    <TextBlock Text="Screenshot" Style="{StaticResource CardLabelTextStyle}" />
+                                    <TextBlock Text="{Binding ScreenshotPath, TargetNullValue='No screenshot attached.'}"
+                                               Margin="0,8,0,0"
+                                               TextWrapping="Wrap"
+                                               Foreground="{StaticResource SecondaryTextBrush}" />
+                                    <Button Content="Attach Screenshot"
+                                            Command="{Binding SelectScreenshotCommand}"
+                                            Style="{StaticResource GhostButtonStyle}"
+                                            Margin="0,14,0,0"
+                                            HorizontalAlignment="Left" />
+                                </StackPanel>
+                            </Border>
+
+                            <Border Grid.Column="2"
+                                    Background="{StaticResource SurfaceAltBrush}"
+                                    BorderBrush="{StaticResource BorderBrushSoft}"
+                                    BorderThickness="1"
+                                    CornerRadius="16"
+                                    Padding="16">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <TextBlock Text="Gross P and L" Style="{StaticResource CardLabelTextStyle}" />
+                                        <TextBlock Text="{Binding GrossPnL, StringFormat=N2}" Style="{StaticResource MetricValueTextStyle}" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="Net P and L" Style="{StaticResource CardLabelTextStyle}" />
+                                        <TextBlock Text="{Binding NetPnL, StringFormat=N2}" Style="{StaticResource MetricValueTextStyle}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <StackPanel Orientation="Horizontal" Margin="0,18,0,0">
+                <Button Content="Calculate"
+                        Command="{Binding CalculateCommand}"
+                        Style="{StaticResource GhostButtonStyle}" />
+                <Button Content="{Binding SaveButtonText}"
+                        Command="{Binding SaveCommand}"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Margin="12,0,0,0" />
+                <Button Content="New"
+                        Command="{Binding NewTradeCommand}"
+                        Style="{StaticResource GhostButtonStyle}"
+                        Margin="12,0,0,0" />
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

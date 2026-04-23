@@ -1,0 +1,140 @@
+<Window x:Class="TradingJournal.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:TradingJournal.ViewModels"
+        mc:Ignorable="d"
+        Title="{Binding Title}"
+        Width="1240"
+        Height="760"
+        MinWidth="1040"
+        MinHeight="640"
+        WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="290" />
+                <ColumnDefinition Width="18" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    Style="{StaticResource SidebarCardStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel>
+                        <TextBlock Text="{Binding ShellTitle}"
+                                   FontSize="26"
+                                   FontWeight="Bold" />
+                        <TextBlock Text="{Binding ShellSubtitle}"
+                                   Margin="0,10,0,0"
+                                   TextWrapping="Wrap"
+                                   Foreground="{StaticResource SecondaryTextBrush}" />
+                    </StackPanel>
+
+                    <Button Grid.Row="1"
+                            Margin="0,20,0,18"
+                            Content="Refresh Workspace"
+                            Command="{Binding RefreshCommand}"
+                            Style="{StaticResource PrimaryButtonStyle}" />
+
+                    <ItemsControl Grid.Row="2"
+                                  ItemsSource="{Binding NavigationItems}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Margin="0,0,0,4"
+                                        Style="{StaticResource NavigationButtonStyle}"
+                                        Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                        CommandParameter="{Binding Target}">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Title}"
+                                                   FontSize="17"
+                                                   FontWeight="SemiBold" />
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="2"
+                    Style="{StaticResource ShellCardStyle}"
+                    Padding="24">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Border Background="{StaticResource SurfaceAltBrush}"
+                            BorderBrush="{StaticResource BorderBrushSoft}"
+                            BorderThickness="1"
+                            CornerRadius="18"
+                            Padding="18"
+                            Margin="0,0,0,20">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel>
+                                <TextBlock Text="{Binding CurrentWorkspace.Title, FallbackValue=Workspace}"
+                                           FontSize="24"
+                                           FontWeight="Bold" />
+                                <TextBlock Text="{Binding CurrentWorkspace.Subtitle}"
+                                           Margin="0,8,0,0"
+                                           Foreground="{StaticResource SecondaryTextBrush}"
+                                           TextWrapping="Wrap" />
+                            </StackPanel>
+
+                            <Border Grid.Column="1"
+                                    Background="{StaticResource AccentBrush}"
+                                    CornerRadius="6"
+                                    Padding="12,7"
+                                    VerticalAlignment="Center">
+                                <TextBlock Text="{Binding ActiveAccountDisplay}"
+                                           Foreground="{StaticResource InverseTextBrush}"
+                                           FontWeight="SemiBold" />
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <ContentControl Grid.Row="1"
+                                    Content="{Binding CurrentWorkspace}" />
+                </Grid>
+            </Border>
+        </Grid>
+
+        <StatusBar Grid.Row="1" Margin="0,16,0,0">
+            <StatusBarItem>
+                <TextBlock Text="{Binding StatusMessage}" />
+            </StatusBarItem>
+            <Separator />
+            <StatusBarItem>
+                <TextBlock Text="{Binding CurrentWorkspace.Title, FallbackValue=Ready}" />
+            </StatusBarItem>
+            <Separator />
+            <StatusBarItem>
+                <TextBlock Text="{Binding ActiveAccountDisplay}" />
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

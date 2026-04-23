@@ -1,0 +1,79 @@
+<UserControl x:Class="TradingJournal.Views.TradeDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+    <Border Style="{StaticResource PanelCardStyle}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Trade Detail" Style="{StaticResource CardTitleTextStyle}" />
+
+            <Grid Grid.Row="1" Margin="0,16,0,0">
+                <Grid.Resources>
+                    <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+                </Grid.Resources>
+
+                <StackPanel Visibility="{Binding HasTrade, Converter={StaticResource BoolToVisibility}}">
+                    <TextBlock Text="{Binding SelectedTrade.Symbol}" Style="{StaticResource PageTitleTextStyle}" FontSize="24" />
+                    <TextBlock Text="{Binding SelectedTrade.ViolationSummary}"
+                               Margin="0,8,0,0"
+                               Foreground="IndianRed"
+                               TextWrapping="Wrap" />
+                    <UniformGrid Columns="2" Margin="0,18,0,0">
+                        <StackPanel Margin="0,0,16,12">
+                            <TextBlock Text="Entry" Style="{StaticResource CardLabelTextStyle}" />
+                            <TextBlock Text="{Binding SelectedTrade.EntryPrice, StringFormat=N2}" />
+                        </StackPanel>
+                        <StackPanel Margin="0,0,0,12">
+                            <TextBlock Text="Exit" Style="{StaticResource CardLabelTextStyle}" />
+                            <TextBlock Text="{Binding SelectedTrade.ExitPrice, StringFormat=N2}" />
+                        </StackPanel>
+                        <StackPanel Margin="0,0,16,12">
+                            <TextBlock Text="Net P and L" Style="{StaticResource CardLabelTextStyle}" />
+                            <TextBlock Text="{Binding SelectedTrade.NetPnL, StringFormat=N2}" />
+                        </StackPanel>
+                        <StackPanel Margin="0,0,0,12">
+                            <TextBlock Text="Type" Style="{StaticResource CardLabelTextStyle}" />
+                            <TextBlock Text="{Binding SelectedTrade.TradeType}" />
+                        </StackPanel>
+                    </UniformGrid>
+
+                    <TextBlock Text="Screenshot Preview"
+                               Margin="0,12,0,8"
+                               Style="{StaticResource CardLabelTextStyle}" />
+                    <Border Background="{StaticResource SurfaceAltBrush}"
+                            BorderBrush="{StaticResource BorderBrushSoft}"
+                            BorderThickness="1"
+                            CornerRadius="14"
+                            Padding="12">
+                        <Grid>
+                            <TextBlock Text="No screenshot attached."
+                                       Visibility="{Binding ImagePreviewPath, Converter={StaticResource StringToVisibilityConverter}, ConverterParameter=Invert}"
+                                       Foreground="{StaticResource SecondaryTextBrush}" />
+                            <Image MaxHeight="220"
+                                   Stretch="Uniform"
+                                   Visibility="{Binding ImagePreviewPath, Converter={StaticResource StringToVisibilityConverter}}"
+                                   Source="{Binding ImagePreviewPath}" />
+                        </Grid>
+                    </Border>
+
+                    <TextBlock Text="Notes"
+                               Margin="0,16,0,8"
+                               Style="{StaticResource CardLabelTextStyle}" />
+                    <TextBlock Text="{Binding SelectedTrade.Notes}"
+                               TextWrapping="Wrap"
+                               Foreground="{StaticResource SecondaryTextBrush}" />
+                </StackPanel>
+
+                <TextBlock Text="Select a trade to inspect its details and screenshot."
+                           Foreground="{StaticResource SecondaryTextBrush}"
+                           Visibility="{Binding SelectedTrade.Symbol, Converter={StaticResource StringToVisibilityConverter}, ConverterParameter=Invert}" />
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>
